@@ -187,6 +187,12 @@ export const CustomPlanPage: React.FC<CustomPlanPageProps> = ({
     const plan = calculateNutrition(userData);
     setNutritionPlan(plan);
     
+    // Store nutrition data in localStorage for dashboard
+    localStorage.setItem('targetCalories', plan.calories.toString());
+    localStorage.setItem('targetProtein', plan.protein.toString());
+    localStorage.setItem('targetCarbs', plan.carbs.toString());
+    localStorage.setItem('targetFats', plan.fats.toString());
+    
     // Log debug information to console
     console.log("Nutrition Calculation Debug:", plan);
   }, []);
@@ -369,7 +375,12 @@ export const CustomPlanPage: React.FC<CustomPlanPageProps> = ({
       {/* Continue Button */}
       <div className="mt-auto">
         <Button
-          onClick={onContinue}
+          onClick={() => {
+            // Set logged in state
+            localStorage.setItem('isLoggedIn', 'true');
+            // Navigate to dashboard
+            onContinue();
+          }}
           className="w-full h-14 text-lg font-medium"
           size="lg"
         >

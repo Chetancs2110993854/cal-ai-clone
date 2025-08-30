@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { WelcomeScreen } from "@/components/WelcomeScreen";
 import { ValuePropositionPage } from "@/components/ValuePropositionPage";
 import { HeightWeightPage } from "@/components/HeightWeightPage";
@@ -7,11 +7,20 @@ import { GoalSelectionPage } from "@/components/GoalSelectionPage";
 import { GenderSelectionPage } from "@/components/GenderSelectionPage";
 import { BirthdatePage } from "@/components/BirthdatePage";
 import { CustomPlanPage } from "@/components/CustomPlanPage";
+import { Dashboard } from "@/components/Dashboard";
 
-type OnboardingStep = 'welcome' | 'value-proposition' | 'height-weight' | 'workout-frequency' | 'goal-selection' | 'gender-selection' | 'birthdate' | 'custom-plan' | 'next-step';
+type OnboardingStep = 'welcome' | 'value-proposition' | 'height-weight' | 'workout-frequency' | 'goal-selection' | 'gender-selection' | 'birthdate' | 'custom-plan' | 'dashboard' | 'next-step';
 
 const Index = () => {
   const [currentStep, setCurrentStep] = useState<OnboardingStep>('welcome');
+
+  useEffect(() => {
+    // Check if user is already logged in
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn === 'true') {
+      setCurrentStep('dashboard');
+    }
+  }, []);
 
   const handleGetStarted = () => {
     setCurrentStep('value-proposition');
@@ -42,9 +51,7 @@ const Index = () => {
   };
 
   const handleContinueFromCustomPlan = () => {
-    setCurrentStep('next-step');
-    // TODO: Navigate to next onboarding step
-    console.log('Continuing to next onboarding step...');
+    setCurrentStep('dashboard');
   };
 
   const handleBackToValueProp = () => {
@@ -140,6 +147,10 @@ const Index = () => {
         onBack={handleBackToBirthdate}
       />
     );
+  }
+
+  if (currentStep === 'dashboard') {
+    return <Dashboard />;
   }
 
   return (
