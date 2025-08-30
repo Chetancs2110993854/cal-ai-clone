@@ -4,8 +4,9 @@ import { ValuePropositionPage } from "@/components/ValuePropositionPage";
 import { HeightWeightPage } from "@/components/HeightWeightPage";
 import { WorkoutFrequencyPage } from "@/components/WorkoutFrequencyPage";
 import { GoalSelectionPage } from "@/components/GoalSelectionPage";
+import { GenderSelectionPage } from "@/components/GenderSelectionPage";
 
-type OnboardingStep = 'welcome' | 'value-proposition' | 'height-weight' | 'workout-frequency' | 'goal-selection' | 'next-step';
+type OnboardingStep = 'welcome' | 'value-proposition' | 'height-weight' | 'workout-frequency' | 'goal-selection' | 'gender-selection' | 'next-step';
 
 const Index = () => {
   const [currentStep, setCurrentStep] = useState<OnboardingStep>('welcome');
@@ -27,6 +28,10 @@ const Index = () => {
   };
 
   const handleContinueFromGoalSelection = () => {
+    setCurrentStep('gender-selection');
+  };
+
+  const handleContinueFromGenderSelection = () => {
     setCurrentStep('next-step');
     // TODO: Navigate to next onboarding step
     console.log('Continuing to next onboarding step...');
@@ -42,6 +47,10 @@ const Index = () => {
 
   const handleBackToWorkoutFrequency = () => {
     setCurrentStep('workout-frequency');
+  };
+
+  const handleBackToGoalSelection = () => {
+    setCurrentStep('goal-selection');
   };
 
   const handleBackToWelcome = () => {
@@ -84,6 +93,15 @@ const Index = () => {
       <GoalSelectionPage 
         onContinue={handleContinueFromGoalSelection}
         onBack={handleBackToWorkoutFrequency}
+      />
+    );
+  }
+
+  if (currentStep === 'gender-selection') {
+    return (
+      <GenderSelectionPage 
+        onContinue={handleContinueFromGenderSelection}
+        onBack={handleBackToGoalSelection}
       />
     );
   }
