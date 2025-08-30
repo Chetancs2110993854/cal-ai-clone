@@ -52,14 +52,14 @@ export const CustomPlanPage: React.FC<CustomPlanPageProps> = ({
     logs.push("=== NUTRITION CALCULATION START ===");
     logs.push(`User Data: Height=${userData.height}cm, Weight=${userData.weight}kg, Age=${userData.age}, Gender=${userData.gender}, Goal=${userData.goal}, Workouts=${userData.workoutFrequency}`);
 
-    // BMR Calculation (Mifflin-St Jeor Formula)
+    // BMR Calculation (Mifflin-St Jeor Formula) - metric (kg/cm)
     let bmr: number;
     if (userData.gender === 'male') {
       bmr = 10 * userData.weight + 6.25 * userData.height - 5 * userData.age + 5;
       logs.push(`BMR (Male): 10 * ${userData.weight} + 6.25 * ${userData.height} - 5 * ${userData.age} + 5 = ${bmr}`);
     } else {
       bmr = 10 * userData.weight + 6.25 * userData.height - 5 * userData.age - 161;
-      logs.push(`BMR (Female): 10 * ${userData.weight} + 6.25 * ${userData.height} - 5 * ${userData.age} - 161 = ${bmr}`);
+      logs.push(`BMR (Female/Other): 10 * ${userData.weight} + 6.25 * ${userData.height} - 5 * ${userData.age} - 161 = ${bmr}`);
     }
 
     // Activity Factor
@@ -86,26 +86,32 @@ export const CustomPlanPage: React.FC<CustomPlanPageProps> = ({
     // Goal Adjustment
     let adjustedCalories: number;
     let targetWeight: number;
-    let weightChangeRate: number; // kg per week
-    
+    let weightChangeRate: number; // kg per week (used for target weight timeline)
+
+    // We'll assume a default weekly change when not provided via UI
+    const weeks = 4; // keep existing 4-week target window for target weight/date display
+
     switch (userData.goal) {
-      case 'lose-weight':
-        adjustedCalories = tdee * 0.8;
-        weightChangeRate = -0.5; // lose 0.5kg per week
-        targetWeight = userData.weight + (weightChangeRate * 4); // 4 weeks
-        logs.push(`Goal Adjustment (Lose Weight): ${tdee} * 0.8 = ${adjustedCalories}`);
+      case 'lose-weight': {
+        weightChangeRate = -0.5; // default: lose 0.5 kg/week
+        const dailyDeficit = (Math.abs(weightChangeRate) * 7700) / 7; // kcal/day
+        adjustedCalories = tdee - dailyDeficit;
+        targetWeight = userData.weight + weightChangeRate * weeks;
+        logs.push(`Goal Adjustment (Lose Weight): daily deficit = ${Math.abs(weightChangeRate)}kg/week * 7700 / 7 = ${dailyDeficit.toFixed(0)} kcal/day`);
+        logs.push(`Target Calories: ${tdee.toFixed(0)} - ${dailyDeficit.toFixed(0)} = ${adjustedCalories.toFixed(0)}`);
         break;
+      }
       case 'maintain':
         adjustedCalories = tdee;
         weightChangeRate = 0;
         targetWeight = userData.weight;
-        logs.push(`Goal Adjustment (Maintain): ${tdee} = ${adjustedCalories}`);
+        logs.push(`Goal Adjustment (Maintain): Target Calories = TDEE = ${adjustedCalories.toFixed(0)}`);
         break;
       case 'gain-weight':
         adjustedCalories = tdee * 1.15;
-        weightChangeRate = 0.3; // gain 0.3kg per week
-        targetWeight = userData.weight + (weightChangeRate * 4); // 4 weeks
-        logs.push(`Goal Adjustment (Gain Weight): ${tdee} * 1.15 = ${adjustedCalories}`);
+        weightChangeRate = 0.3; // default: gain 0.3 kg/week
+        targetWeight = userData.weight + weightChangeRate * weeks;
+        logs.push(`Goal Adjustment (Gain Weight): ${tdee.toFixed(0)} * 1.15 = ${adjustedCalories.toFixed(0)}`);
         break;
       default:
         adjustedCalories = tdee;
@@ -113,30 +119,30 @@ export const CustomPlanPage: React.FC<CustomPlanPageProps> = ({
         targetWeight = userData.weight;
     }
 
-    // Target Date (4 weeks from now)
+    // Target Date (keep existing 4 weeks from now display)
     const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 28);
-    const targetDateString = targetDate.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    targetDate.setDate(targetDate.getDate() + weeks * 7);
+    const targetDateString = targetDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
     });
 
-    // Macronutrient Breakdown
-    // Protein: 1.0g per kg of body weight (changed from lbs to kg for metric)
-    const proteinG = userData.weight * 1.0;
+    // Macronutrient Breakdown (based on weight in kg)
+    // Protein: 2.2 g per kg
+    const proteinG = userData.weight * 2.2;
     const proteinCal = proteinG * 4;
-    logs.push(`Protein: ${userData.weight}kg * 1.0g/kg = ${proteinG}g (${proteinCal} calories)`);
+    logs.push(`Protein: ${userData.weight}kg * 2.2g/kg = ${proteinG.toFixed(1)}g (${proteinCal.toFixed(0)} kcal)`);
 
-    // Fat: 0.4g per kg of body weight (changed from lbs to kg for metric)
-    const fatG = userData.weight * 0.4;
+    // Fat: 0.88 g per kg
+    const fatG = userData.weight * 0.88;
     const fatCal = fatG * 9;
-    logs.push(`Fat: ${userData.weight}kg * 0.4g/kg = ${fatG}g (${fatCal} calories)`);
+    logs.push(`Fat: ${userData.weight}kg * 0.88g/kg = ${fatG.toFixed(1)}g (${fatCal.toFixed(0)} kcal)`);
 
     // Carbs: remaining calories
     const carbsCal = adjustedCalories - (proteinCal + fatCal);
     const carbsG = carbsCal / 4;
-    logs.push(`Carbs: (${adjustedCalories} - ${proteinCal} - ${fatCal}) / 4 = ${carbsG}g`);
+    logs.push(`Carbs: (${adjustedCalories.toFixed(0)} - ${proteinCal.toFixed(0)} - ${fatCal.toFixed(0)}) / 4 = ${carbsG.toFixed(1)}g`);
 
     logs.push("=== FINAL RESULTS ===");
     logs.push(`Calories: ${Math.round(adjustedCalories)}`);
@@ -152,7 +158,7 @@ export const CustomPlanPage: React.FC<CustomPlanPageProps> = ({
       protein: Math.round(proteinG),
       fats: Math.round(fatG),
       targetWeight: Math.round(targetWeight * 10) / 10,
-      targetDate: targetDateString
+      targetDate: targetDateString,
     };
   };
 
@@ -182,9 +188,7 @@ export const CustomPlanPage: React.FC<CustomPlanPageProps> = ({
     setNutritionPlan(plan);
     
     // Log debug information to console
-    const logs = calculateNutrition(userData);
-    console.log("Nutrition Calculation Debug Logs:");
-    debugLog.forEach(log => console.log(log));
+    console.log("Nutrition Calculation Debug:", plan);
   }, []);
 
   const getGoalText = () => {
