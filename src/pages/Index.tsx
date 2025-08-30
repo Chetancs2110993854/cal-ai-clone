@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { WelcomeScreen } from "@/components/WelcomeScreen";
 import { ValuePropositionPage } from "@/components/ValuePropositionPage";
+import { HeightWeightPage } from "@/components/HeightWeightPage";
 
-type OnboardingStep = 'welcome' | 'value-proposition' | 'next-step';
+type OnboardingStep = 'welcome' | 'value-proposition' | 'height-weight' | 'next-step';
 
 const Index = () => {
   const [currentStep, setCurrentStep] = useState<OnboardingStep>('welcome');
@@ -12,9 +13,17 @@ const Index = () => {
   };
 
   const handleContinueFromValueProp = () => {
+    setCurrentStep('height-weight');
+  };
+
+  const handleContinueFromHeightWeight = () => {
     setCurrentStep('next-step');
     // TODO: Navigate to next onboarding step
     console.log('Continuing to next onboarding step...');
+  };
+
+  const handleBackToValueProp = () => {
+    setCurrentStep('value-proposition');
   };
 
   const handleBackToWelcome = () => {
@@ -30,6 +39,15 @@ const Index = () => {
       <ValuePropositionPage 
         onContinue={handleContinueFromValueProp}
         onBack={handleBackToWelcome}
+      />
+    );
+  }
+
+  if (currentStep === 'height-weight') {
+    return (
+      <HeightWeightPage 
+        onContinue={handleContinueFromHeightWeight}
+        onBack={handleBackToValueProp}
       />
     );
   }
