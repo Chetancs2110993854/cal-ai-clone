@@ -30,66 +30,67 @@ export const ValuePropositionPage = ({ onContinue, onBack }: ValuePropositionPag
 
       {/* Graph Container */}
       <div className="flex-1 flex flex-col justify-center">
-        <div className="bg-muted/20 rounded-3xl p-6 mb-6">
+        <div className="bg-gray-100 rounded-3xl p-6 mb-6 relative">
           {/* Y-axis label */}
-          <div className="text-sm text-muted-foreground mb-4">Your weight</div>
+          <div className="text-sm text-gray-600 mb-6 font-medium">Your weight</div>
           
           {/* Graph Area */}
-          <div className="relative h-48 mb-4">
-            {/* Graph background */}
+          <div className="relative h-40 mb-6">
             <svg
               className="w-full h-full"
-              viewBox="0 0 300 150"
+              viewBox="0 0 320 120"
               preserveAspectRatio="none"
             >
               {/* Cal AI line (steady decline and maintenance) */}
               <path
-                d="M 20 50 Q 80 80 120 100 Q 180 110 280 110"
-                stroke="hsl(var(--foreground))"
-                strokeWidth="3"
+                d="M 30 30 Q 80 50 120 65 Q 180 75 290 75"
+                stroke="#000000"
+                strokeWidth="2.5"
                 fill="none"
                 strokeLinecap="round"
               />
               
               {/* Traditional diet line (drop then regain) */}
               <path
-                d="M 20 50 Q 60 90 100 100 Q 140 70 200 40 Q 240 30 280 35"
-                stroke="hsl(0 84% 60%)"
-                strokeWidth="3"
+                d="M 30 30 Q 70 55 110 65 Q 150 50 200 25 Q 250 15 290 20"
+                stroke="#ef4444"
+                strokeWidth="2.5"
                 fill="none"
                 strokeLinecap="round"
               />
               
               {/* Start point */}
-              <circle cx="20" cy="50" r="4" fill="hsl(var(--foreground))" />
+              <circle cx="30" cy="30" r="3" fill="#000000" />
               
               {/* End points */}
-              <circle cx="280" cy="110" r="4" fill="hsl(var(--foreground))" />
-              <circle cx="280" cy="35" r="4" fill="hsl(0 84% 60%)" />
+              <circle cx="290" cy="75" r="3" fill="#000000" />
+              <circle cx="290" cy="20" r="3" fill="#ef4444" />
             </svg>
             
-            {/* Labels */}
-            <div className="absolute top-8 right-8 text-sm text-red-500">
+            {/* Traditional diet label */}
+            <div className="absolute top-4 right-8 text-sm text-red-500 font-medium">
               Traditional diet
             </div>
-            <div className="absolute bottom-12 left-8 flex items-center text-sm">
-              <div className="w-3 h-3 bg-foreground rounded-full mr-2"></div>
-              <span className="text-foreground font-medium">Cal AI</span>
-              <span className="bg-foreground text-background text-xs px-2 py-1 rounded ml-2">
+            
+            {/* Cal AI label with PRO badge */}
+            <div className="absolute bottom-2 left-2 flex items-center">
+              <div className="w-2 h-2 bg-black rounded-full mr-2"></div>
+              <span className="text-black text-sm font-medium mr-2">Cal AI</span>
+              <span className="bg-black text-white text-xs px-2 py-0.5 rounded font-medium">
                 PRO
               </span>
             </div>
           </div>
           
           {/* X-axis labels */}
-          <div className="flex justify-between text-sm text-muted-foreground">
+          <div className="flex justify-between text-sm text-gray-600 font-medium">
             <span>Month 1</span>
             <span>Month 6</span>
           </div>
         </div>
 
         {/* Caption */}
-        <p className="text-center text-muted-foreground mb-12 px-4">
+        <p className="text-center text-gray-600 mb-12 px-4 font-medium">
           80% of Cal AI users maintain their weight loss even 6 months later
         </p>
       </div>
