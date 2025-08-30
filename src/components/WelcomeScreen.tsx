@@ -10,7 +10,7 @@ export const WelcomeScreen = ({ onGetStarted }: WelcomeScreenProps) => {
       <div className="w-full max-w-sm mx-auto flex flex-col items-center text-center space-y-8">
         
         {/* Food Image */}
-        <div className="w-64 h-64 rounded-2xl overflow-hidden shadow-lg">
+        <div className="w-full aspect-square rounded-2xl overflow-hidden shadow-lg mx-4">
           <img
             src="https://images.unsplash.com/photo-1592415486689-125cbbfcbee2?q=80&w=800&auto=format"
             alt="Healthy sandwich with vegetables"
