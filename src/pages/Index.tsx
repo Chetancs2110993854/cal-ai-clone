@@ -6,8 +6,9 @@ import { WorkoutFrequencyPage } from "@/components/WorkoutFrequencyPage";
 import { GoalSelectionPage } from "@/components/GoalSelectionPage";
 import { GenderSelectionPage } from "@/components/GenderSelectionPage";
 import { BirthdatePage } from "@/components/BirthdatePage";
+import { CustomPlanPage } from "@/components/CustomPlanPage";
 
-type OnboardingStep = 'welcome' | 'value-proposition' | 'height-weight' | 'workout-frequency' | 'goal-selection' | 'gender-selection' | 'birthdate' | 'next-step';
+type OnboardingStep = 'welcome' | 'value-proposition' | 'height-weight' | 'workout-frequency' | 'goal-selection' | 'gender-selection' | 'birthdate' | 'custom-plan' | 'next-step';
 
 const Index = () => {
   const [currentStep, setCurrentStep] = useState<OnboardingStep>('welcome');
@@ -37,6 +38,10 @@ const Index = () => {
   };
 
   const handleContinueFromBirthdate = () => {
+    setCurrentStep('custom-plan');
+  };
+
+  const handleContinueFromCustomPlan = () => {
     setCurrentStep('next-step');
     // TODO: Navigate to next onboarding step
     console.log('Continuing to next onboarding step...');
@@ -60,6 +65,10 @@ const Index = () => {
 
   const handleBackToGenderSelection = () => {
     setCurrentStep('gender-selection');
+  };
+
+  const handleBackToBirthdate = () => {
+    setCurrentStep('birthdate');
   };
 
   const handleBackToWelcome = () => {
@@ -120,6 +129,15 @@ const Index = () => {
       <BirthdatePage 
         onContinue={handleContinueFromBirthdate}
         onBack={handleBackToGenderSelection}
+      />
+    );
+  }
+
+  if (currentStep === 'custom-plan') {
+    return (
+      <CustomPlanPage 
+        onContinue={handleContinueFromCustomPlan}
+        onBack={handleBackToBirthdate}
       />
     );
   }
