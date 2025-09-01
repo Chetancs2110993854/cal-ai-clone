@@ -5,7 +5,7 @@
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/Chetancs2110993854/cal-ai-clone)
 ![GitHub license](https://img.shields.io/github/license/Chetancs2110993854/cal-ai-clone)
 
-# Welcome to your Lovable project
+# Welcome to Cal ai
 
 ## Project info
 
