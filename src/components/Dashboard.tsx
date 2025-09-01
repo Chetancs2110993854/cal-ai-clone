@@ -6,6 +6,7 @@ import { ChartContainer } from '@/components/ui/chart';
 import { PieChart, Pie, Cell } from 'recharts';
 import { Camera, Flame, Beef, Wheat, Droplet, Plus } from 'lucide-react';
 import { CameraCapture } from './CameraCapture';
+import { BottomNavigation } from './BottomNavigation';
 import { toast } from '@/hooks/use-toast';
 
 export const Dashboard = () => {
@@ -94,7 +95,7 @@ export const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white p-4">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white p-4 pb-24">
       {/* Top Bar */}
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-2">
@@ -340,6 +341,8 @@ export const Dashboard = () => {
         onClose={() => setIsCameraOpen(false)}
         onCapture={handlePhotoCapture}
       />
+
+      <BottomNavigation />
     </div>
   );
 };
