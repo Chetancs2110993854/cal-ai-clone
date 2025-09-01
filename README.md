@@ -4,7 +4,7 @@
 
 This is the clone of Cal ai (https://www.calai.app/) , a $2M/month ARR app.
 
-Demo: https://calorie-pathway.lovable.app/
+Demo: https://calorie-pathway.lovable.app/ (use mobile configuration for better experience)
 
 Figma: https://www.figma.com/board/tTQaByecKYnFWcSIEKXgU2/Cal-AI-s-Onboarding---Broken-down--Community-?node-id=2-144&t=XlZrUo53GWDB7klO-1
 
