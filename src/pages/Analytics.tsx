@@ -79,34 +79,34 @@ export const Analytics = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-24">
+    <div className="min-h-screen bg-gray-50 pb-24">
       {/* Header */}
-      <div className="bg-card px-4 py-6">
-        <h1 className="text-2xl font-bold text-foreground">Overview</h1>
+      <div className="bg-white px-6 py-8">
+        <h1 className="text-3xl font-bold text-black">Overview</h1>
       </div>
 
-      <div className="px-4 space-y-5 py-4">
+      <div className="px-6 space-y-6">
         {/* Weight Goal Section */}
-        <div className="space-y-3">
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-base text-muted-foreground">Weight Goal</span>
-            <Button variant="outline" className="rounded-full px-4 py-1 text-xs">
+            <span className="text-lg text-gray-700">Weight Goal</span>
+            <Button variant="outline" className="rounded-full px-6 py-2 text-sm">
               Update
             </Button>
           </div>
-          <div className="text-3xl font-bold text-foreground">{goalWeight} kg</div>
+          <div className="text-4xl font-bold text-black">{goalWeight} kg</div>
         </div>
 
         {/* Current Weight Card */}
-        <Card className="bg-card rounded-2xl shadow-sm border-0">
-          <CardContent className="p-5">
-            <div className="space-y-3">
-              <span className="text-base text-muted-foreground">Current Weight</span>
-              <div className="text-3xl font-bold text-foreground">{currentWeight} kg</div>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                Update weekly to adjust your plan and hit your goal.
+        <Card className="bg-white rounded-3xl shadow-sm border-0">
+          <CardContent className="p-6">
+            <div className="space-y-4">
+              <span className="text-lg text-gray-700">Current Weight</span>
+              <div className="text-4xl font-bold text-black">{currentWeight} kg</div>
+              <p className="text-gray-600 text-sm leading-relaxed">
+                Try to update once a week so we can adjust your plan to ensure you hit your goal.
               </p>
-              <Button className="w-full bg-foreground text-background hover:bg-foreground/90 rounded-xl py-3 text-base font-semibold">
+              <Button className="w-full bg-black text-white hover:bg-gray-800 rounded-2xl py-4 text-lg font-semibold">
                 Log weight
               </Button>
             </div>
@@ -114,24 +114,24 @@ export const Analytics = () => {
         </Card>
 
         {/* BMI Section */}
-        <div className="space-y-3">
-          <h2 className="text-lg font-bold text-foreground">Your BMI</h2>
+        <div className="space-y-4">
+          <h2 className="text-xl font-bold text-black">Your BMI</h2>
           
-          <Card className="bg-card rounded-2xl shadow-sm border-0">
-            <CardContent className="p-5">
-              <div className="space-y-3">
+          <Card className="bg-white rounded-3xl shadow-sm border-0">
+            <CardContent className="p-6">
+              <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="text-muted-foreground text-sm">Your weight is</span>
-                    <div className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
-                      <CheckCircle className="w-3 h-3" />
+                  <div className="flex items-center gap-3">
+                    <span className="text-gray-700">Your weight is</span>
+                    <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                      <CheckCircle className="w-4 h-4" />
                       {status}
                     </div>
                   </div>
-                  <Info className="w-4 h-4 text-muted-foreground" />
+                  <Info className="w-5 h-5 text-gray-400" />
                 </div>
                 
-                <div className="text-3xl font-bold text-foreground">{bmi}</div>
+                <div className="text-4xl font-bold text-black">{bmi}</div>
                 
                 <div className="space-y-3">
                   <Progress value={progress} className="h-3 bg-gray-100">
