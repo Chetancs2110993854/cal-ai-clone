@@ -30,8 +30,6 @@ Simply visit the [Lovable Project](https://lovable.dev/projects/02eb2fb4-459f-41
 
 Changes made via Lovable will be committed automatically to this repo.
 
-~~ contact onwer at chetan.k2053@gmail.com to buy this repo (all support provided)
-
 **Use your preferred IDE**
 
 If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
