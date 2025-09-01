@@ -79,34 +79,34 @@ export const Analytics = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-24">
+    <div className="min-h-screen bg-background pb-20">
       {/* Header */}
-      <div className="bg-white px-6 py-8">
-        <h1 className="text-3xl font-bold text-black">Overview</h1>
+      <div className="bg-card px-4 py-6">
+        <h1 className="text-2xl font-bold text-foreground">Overview</h1>
       </div>
 
-      <div className="px-6 space-y-6">
+      <div className="px-4 space-y-4 mt-4">
         {/* Weight Goal Section */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-lg text-gray-700">Weight Goal</span>
-            <Button variant="outline" className="rounded-full px-6 py-2 text-sm">
+            <span className="text-base text-muted-foreground">Weight Goal</span>
+            <Button variant="outline" className="rounded-full px-4 py-1 text-sm h-8">
               Update
             </Button>
           </div>
-          <div className="text-4xl font-bold text-black">{goalWeight} kg</div>
+          <div className="text-3xl font-bold text-foreground">{goalWeight} kg</div>
         </div>
 
         {/* Current Weight Card */}
-        <Card className="bg-white rounded-3xl shadow-sm border-0">
-          <CardContent className="p-6">
-            <div className="space-y-4">
-              <span className="text-lg text-gray-700">Current Weight</span>
-              <div className="text-4xl font-bold text-black">{currentWeight} kg</div>
-              <p className="text-gray-600 text-sm leading-relaxed">
+        <Card className="bg-card rounded-2xl shadow-sm border-0">
+          <CardContent className="p-5">
+            <div className="space-y-3">
+              <span className="text-base text-muted-foreground">Current Weight</span>
+              <div className="text-3xl font-bold text-foreground">{currentWeight} kg</div>
+              <p className="text-muted-foreground text-sm leading-relaxed">
                 Try to update once a week so we can adjust your plan to ensure you hit your goal.
               </p>
-              <Button className="w-full bg-black text-white hover:bg-gray-800 rounded-2xl py-4 text-lg font-semibold">
+              <Button className="w-full bg-foreground text-background hover:bg-foreground/90 rounded-xl py-3 text-base font-semibold">
                 Log weight
               </Button>
             </div>
@@ -114,49 +114,49 @@ export const Analytics = () => {
         </Card>
 
         {/* BMI Section */}
-        <div className="space-y-4">
-          <h2 className="text-xl font-bold text-black">Your BMI</h2>
+        <div className="space-y-3">
+          <h2 className="text-lg font-bold text-foreground">Your BMI</h2>
           
-          <Card className="bg-white rounded-3xl shadow-sm border-0">
-            <CardContent className="p-6">
+          <Card className="bg-card rounded-2xl shadow-sm border-0">
+            <CardContent className="p-5">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="text-gray-700">Your weight is</span>
-                    <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
-                      <CheckCircle className="w-4 h-4" />
+                  <div className="flex items-center gap-2">
+                    <span className="text-muted-foreground text-sm">Your weight is</span>
+                    <div className="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+                      <CheckCircle className="w-3 h-3" />
                       {status}
                     </div>
                   </div>
-                  <Info className="w-5 h-5 text-gray-400" />
+                  <Info className="w-4 h-4 text-muted-foreground" />
                 </div>
                 
-                <div className="text-4xl font-bold text-black">{bmi}</div>
+                <div className="text-3xl font-bold text-foreground">{bmi}</div>
                 
-                <div className="space-y-3">
-                  <Progress value={progress} className="h-3 bg-gray-100">
+                <div className="space-y-2">
+                  <Progress value={progress} className="h-2 bg-muted">
                     <div 
                       className="h-full bg-gradient-to-r from-blue-500 via-green-500 via-yellow-500 to-red-500 rounded-full transition-all duration-300"
                       style={{ width: `${progress}%` }}
                     />
                   </Progress>
                   
-                  <div className="flex justify-between text-sm">
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-                      <span className="text-gray-600">Underweight</span>
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                      <span className="text-muted-foreground">Underweight</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                      <span className="text-gray-600">Healthy</span>
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      <span className="text-muted-foreground">Healthy</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                      <span className="text-gray-600">Overweight</span>
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                      <span className="text-muted-foreground">Overweight</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                      <span className="text-gray-600">Obese</span>
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                      <span className="text-muted-foreground">Obese</span>
                     </div>
                   </div>
                 </div>
@@ -166,10 +166,10 @@ export const Analytics = () => {
         </div>
 
         {/* Goal Progress Section */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-black">Goal Progress</h2>
-            <span className="text-gray-500">0.0% <span className="text-gray-400">Goal achieved</span></span>
+            <h2 className="text-lg font-bold text-foreground">Goal Progress</h2>
+            <span className="text-muted-foreground text-sm">0.0% <span className="text-muted-foreground/60">Goal achieved</span></span>
           </div>
           
           {/* Time Filter Tabs */}
@@ -179,10 +179,10 @@ export const Analytics = () => {
                 key={filter}
                 variant={activeTimeFilter === filter ? "default" : "outline"}
                 onClick={() => setActiveTimeFilter(filter)}
-                className={`rounded-full px-4 py-2 text-sm whitespace-nowrap ${
+                className={`rounded-full px-3 py-1 text-xs whitespace-nowrap h-8 ${
                   activeTimeFilter === filter 
-                    ? 'bg-black text-white' 
-                    : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
+                    ? 'bg-foreground text-background' 
+                    : 'bg-card text-muted-foreground border-border hover:bg-accent'
                 }`}
               >
                 {filter}
@@ -191,51 +191,49 @@ export const Analytics = () => {
           </div>
           
           {/* Weight Chart */}
-          <Card className="bg-white rounded-3xl shadow-sm border-0">
-            <CardContent className="p-6">
-              <div className="space-y-4">
-                <div className="h-48 relative">
-                  {/* Y-axis labels */}
-                  <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-sm text-gray-500">
-                    <span>72 kg</span>
-                    <span>71.6 kg</span>
-                    <span>71.2 kg</span>
-                    <span>70.8 kg</span>
-                    <span>70.4 kg</span>
-                    <span>70 kg</span>
-                  </div>
-                  
-                  {/* Chart area */}
-                  <div className="ml-12 h-full bg-gray-50 rounded-lg flex items-end justify-between px-4 pb-4 relative">
-                    {/* Grid lines */}
-                    <div className="absolute inset-0 flex flex-col justify-between">
-                      {[...Array(6)].map((_, i) => (
-                        <div key={i} className="border-t border-gray-200"></div>
-                      ))}
-                    </div>
-                    
-                    {/* Mock data points */}
-                    <div className="w-full h-full relative">
-                      <svg className="w-full h-full" viewBox="0 0 300 150">
-                        <polyline
-                          fill="none"
-                          stroke="#10b981"
-                          strokeWidth="2"
-                          points="30,120 80,110 130,100 180,95 230,90 280,85"
-                        />
-                        {[30, 80, 130, 180, 230, 280].map((x, i) => (
-                          <circle key={i} cx={x} cy={120 - i * 7} r="4" fill="#10b981" />
-                        ))}
-                      </svg>
-                    </div>
-                  </div>
-                  
-                  {/* X-axis labels */}
-                  <div className="ml-12 mt-2 flex justify-between text-sm text-gray-500">
-                    {weightData.map((data, i) => (
-                      <span key={i}>{data.date}</span>
+          <Card className="bg-card rounded-2xl shadow-sm border-0">
+            <CardContent className="p-4">
+              <div className="h-32 relative">
+                {/* Y-axis labels */}
+                <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-muted-foreground">
+                  <span>72</span>
+                  <span>71.6</span>
+                  <span>71.2</span>
+                  <span>70.8</span>
+                  <span>70.4</span>
+                  <span>70</span>
+                </div>
+                
+                {/* Chart area */}
+                <div className="ml-8 h-full bg-muted rounded-lg flex items-end justify-between px-3 pb-3 relative">
+                  {/* Grid lines */}
+                  <div className="absolute inset-0 flex flex-col justify-between">
+                    {[...Array(6)].map((_, i) => (
+                      <div key={i} className="border-t border-border/50"></div>
                     ))}
                   </div>
+                  
+                  {/* Mock data points */}
+                  <div className="w-full h-full relative">
+                    <svg className="w-full h-full" viewBox="0 0 200 100">
+                      <polyline
+                        fill="none"
+                        stroke="hsl(var(--primary))"
+                        strokeWidth="2"
+                        points="20,80 50,70 80,60 110,55 140,50 170,45"
+                      />
+                      {[20, 50, 80, 110, 140, 170].map((x, i) => (
+                        <circle key={i} cx={x} cy={80 - i * 7} r="3" fill="hsl(var(--primary))" />
+                      ))}
+                    </svg>
+                  </div>
+                </div>
+                
+                {/* X-axis labels */}
+                <div className="ml-8 mt-1 flex justify-between text-xs text-muted-foreground">
+                  {weightData.slice(0, 5).map((data, i) => (
+                    <span key={i}>{data.date.split(' ')[0]}</span>
+                  ))}
                 </div>
               </div>
             </CardContent>
@@ -243,10 +241,10 @@ export const Analytics = () => {
         </div>
 
         {/* Nutrition Section */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-black">Nutrition</h2>
-            <span className="text-gray-500">This week vs previous week</span>
+            <h2 className="text-lg font-bold text-foreground">Nutrition</h2>
+            <span className="text-muted-foreground text-sm">This vs previous week</span>
           </div>
           
           {/* Nutrition Filter Tabs */}
@@ -256,10 +254,10 @@ export const Analytics = () => {
                 key={tab}
                 variant={activeNutritionTab === tab ? "default" : "outline"}
                 onClick={() => setActiveNutritionTab(tab)}
-                className={`rounded-full px-4 py-2 text-sm whitespace-nowrap ${
+                className={`rounded-full px-3 py-1 text-xs whitespace-nowrap h-8 ${
                   activeNutritionTab === tab 
-                    ? 'bg-black text-white' 
-                    : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
+                    ? 'bg-foreground text-background' 
+                    : 'bg-card text-muted-foreground border-border hover:bg-accent'
                 }`}
               >
                 {tab}
@@ -268,44 +266,43 @@ export const Analytics = () => {
           </div>
           
           {/* Nutrition Stats */}
-          <div className="grid grid-cols-2 gap-4">
-            <Card className="bg-white rounded-3xl shadow-sm border-0">
-              <CardContent className="p-6 text-center">
-                <div className="text-4xl font-bold text-black mb-2">0</div>
-                <div className="text-gray-600">Total calories</div>
+          <div className="grid grid-cols-2 gap-3">
+            <Card className="bg-card rounded-2xl shadow-sm border-0">
+              <CardContent className="p-4 text-center">
+                <div className="text-2xl font-bold text-foreground mb-1">0</div>
+                <div className="text-muted-foreground text-sm">Total calories</div>
               </CardContent>
             </Card>
             
-            <Card className="bg-white rounded-3xl shadow-sm border-0">
-              <CardContent className="p-6 text-center">
-                <div className="text-4xl font-bold text-black mb-2">0.0</div>
-                <div className="text-gray-600">Daily avg.</div>
+            <Card className="bg-card rounded-2xl shadow-sm border-0">
+              <CardContent className="p-4 text-center">
+                <div className="text-2xl font-bold text-foreground mb-1">0.0</div>
+                <div className="text-muted-foreground text-sm">Daily avg.</div>
               </CardContent>
             </Card>
           </div>
           
           {/* Weekly Chart */}
-          <Card className="bg-white rounded-3xl shadow-sm border-0">
-            <CardContent className="p-6">
-              <div className="h-32 relative">
+          <Card className="bg-card rounded-2xl shadow-sm border-0">
+            <CardContent className="p-4">
+              <div className="h-24 relative">
                 {/* Y-axis */}
-                <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-sm text-gray-500">
+                <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-muted-foreground">
                   <span>1.2</span>
                   <span>0.8</span>
                   <span>0.4</span>
                   <span>0.0</span>
                   <span>-0.4</span>
                   <span>-0.8</span>
-                  <span>-1.2</span>
                 </div>
                 
                 {/* Chart area */}
-                <div className="ml-8 h-full bg-gray-50 rounded-lg relative">
+                <div className="ml-6 h-full bg-muted rounded-lg relative">
                   {/* Grid line at zero */}
-                  <div className="absolute top-1/2 left-0 right-0 border-t border-pink-300"></div>
+                  <div className="absolute top-1/2 left-0 right-0 border-t border-accent"></div>
                   
                   {/* X-axis labels */}
-                  <div className="absolute bottom-2 left-0 right-0 flex justify-around text-sm text-gray-500">
+                  <div className="absolute bottom-1 left-0 right-0 flex justify-around text-xs text-muted-foreground">
                     {['S', 'M', 'T', 'W', 'T', 'F'].map((day) => (
                       <span key={day}>{day}</span>
                     ))}
