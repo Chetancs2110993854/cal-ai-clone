@@ -30,7 +30,8 @@ export const Dashboard = () => {
     setUserData(storedData);
   }, []);
 
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+  const dayNumbers = [14, 15, 16, 17, 18, 19, 20];
   
   // Mock data for demonstration
   const currentCalories = 1847;
@@ -93,68 +94,82 @@ export const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white bg-gradient-to-b from-white to-gray-50 p-4">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white p-4">
       {/* Top Bar */}
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-foreground">Cal AI</h1>
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
+            <span className="text-white font-bold text-sm">🍎</span>
+          </div>
+          <h1 className="text-2xl font-bold text-black">Cal AI</h1>
+        </div>
         
-        {/* Week Calendar */}
-        <div className="flex gap-2">
+        {/* Streak Counter */}
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center">
+            <span className="text-orange-600 text-sm">🔥</span>
+          </div>
+          <div className="text-right">
+            <div className="text-xl font-bold text-black">{streakCount}</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Week Calendar */}
+      <div className="flex justify-center mb-8">
+        <div className="flex gap-3">
           {days.map((day, index) => (
-            <div
-              key={day}
-              className={`px-3 py-2 rounded-full text-sm font-medium ${
-                index === currentDay
-                  ? 'bg-primary text-primary-foreground'
-                  : 'border-2 border-dashed border-muted-foreground text-muted-foreground'
-              }`}
-            >
-              {day}
+            <div key={day} className="text-center">
+              <div className="text-xs text-gray-500 mb-1 font-medium">{day}</div>
+              <div
+                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
+                  index === currentDay
+                    ? 'bg-black text-white'
+                    : 'bg-gray-100 text-gray-700'
+                }`}
+              >
+                {dayNumbers[index]}
+              </div>
             </div>
           ))}
-        </div>
-
-        {/* Streak Counter */}
-        <div className="text-right">
-          <div className="text-2xl font-bold text-foreground">{streakCount}</div>
-          <div className="text-sm text-muted-foreground">day streak</div>
         </div>
       </div>
 
       {/* Daily Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         {/* Calorie Summary Card */}
-        <Card className="shadow-sm border-0">
-          <CardContent className="p-6">
+        <Card className="shadow-lg border-0 bg-white rounded-3xl">
+          <CardContent className="p-8">
             <div className="text-center">
-              <div className="text-3xl font-bold text-black mb-2">{currentCalories}</div>
-              <div className="text-sm text-gray-600 mb-4">
-                {caloriesLeft > 0 ? `${caloriesLeft} calories left` : `${Math.abs(caloriesLeft)} calories over`}
+              <div className="text-4xl font-bold text-black mb-2">{currentCalories}</div>
+              <div className="text-sm text-gray-500 mb-6">
+                {caloriesLeft > 0 ? 'Calories left' : 'Calories over'}
               </div>
-              <div className="relative w-24 h-24 mx-auto">
+              <div className="relative w-20 h-20 mx-auto">
                 <ChartContainer
                   config={{
-                    consumed: { color: "#ff6b35" },
+                    consumed: { color: "#000000" },
                     remaining: { color: "#f3f4f6" }
                   }}
                   className="w-full h-full"
                 >
-                  <PieChart width={96} height={96}>
+                  <PieChart width={80} height={80}>
                     <Pie
                       data={caloriesData}
                       cx="50%"
                       cy="50%"
-                      innerRadius={30}
-                      outerRadius={45}
+                      innerRadius={25}
+                      outerRadius={35}
                       dataKey="value"
+                      strokeWidth={0}
                     >
-                      <Cell fill="#ff6b35" />
+                      <Cell fill="#000000" />
                       <Cell fill="#f3f4f6" />
                     </Pie>
                   </PieChart>
                 </ChartContainer>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <Flame className="w-8 h-8 text-orange-500" />
+                  <Flame className="w-6 h-6 text-black" />
                 </div>
               </div>
             </div>
@@ -162,13 +177,13 @@ export const Dashboard = () => {
         </Card>
 
         {/* Protein Card */}
-        <Card className="shadow-sm border-0">
+        <Card className="shadow-lg border-0 bg-white rounded-3xl">
           <CardContent className="p-6">
             <div className="text-left mb-4">
               <div className="text-xl font-bold text-black">{proteinConsumed}g</div>
-              <div className="text-sm font-semibold text-black">Protein left</div>
+              <div className="text-sm font-medium text-gray-500">Protein left</div>
             </div>
-            <div className="relative w-16 h-16">
+            <div className="relative w-12 h-12">
               <ChartContainer
                 config={{
                   consumed: { color: "#ef4444" },
@@ -176,14 +191,15 @@ export const Dashboard = () => {
                 }}
                 className="w-full h-full"
               >
-                <PieChart width={64} height={64}>
+                <PieChart width={48} height={48}>
                   <Pie
                     data={proteinData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={20}
-                    outerRadius={30}
+                    innerRadius={15}
+                    outerRadius={22}
                     dataKey="value"
+                    strokeWidth={0}
                   >
                     <Cell fill="#ef4444" />
                     <Cell fill="#f3f4f6" />
@@ -191,20 +207,20 @@ export const Dashboard = () => {
                 </PieChart>
               </ChartContainer>
               <div className="absolute inset-0 flex items-center justify-center">
-                <Beef className="w-4 h-4 text-red-500" />
+                <Beef className="w-3 h-3 text-red-500" />
               </div>
             </div>
           </CardContent>
         </Card>
 
         {/* Carbs Card */}
-        <Card className="shadow-sm border-0">
+        <Card className="shadow-lg border-0 bg-white rounded-3xl">
           <CardContent className="p-6">
             <div className="text-left mb-4">
               <div className="text-xl font-bold text-black">{carbsConsumed}g</div>
-              <div className="text-sm font-semibold text-black">Carbs left</div>
+              <div className="text-sm font-medium text-gray-500">Carbs left</div>
             </div>
-            <div className="relative w-16 h-16">
+            <div className="relative w-12 h-12">
               <ChartContainer
                 config={{
                   consumed: { color: "#f97316" },
@@ -212,14 +228,15 @@ export const Dashboard = () => {
                 }}
                 className="w-full h-full"
               >
-                <PieChart width={64} height={64}>
+                <PieChart width={48} height={48}>
                   <Pie
                     data={carbsData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={20}
-                    outerRadius={30}
+                    innerRadius={15}
+                    outerRadius={22}
                     dataKey="value"
+                    strokeWidth={0}
                   >
                     <Cell fill="#f97316" />
                     <Cell fill="#f3f4f6" />
@@ -227,20 +244,20 @@ export const Dashboard = () => {
                 </PieChart>
               </ChartContainer>
               <div className="absolute inset-0 flex items-center justify-center">
-                <Wheat className="w-4 h-4 text-orange-500" />
+                <Wheat className="w-3 h-3 text-orange-500" />
               </div>
             </div>
           </CardContent>
         </Card>
 
         {/* Fats Card */}
-        <Card className="shadow-sm border-0">
+        <Card className="shadow-lg border-0 bg-white rounded-3xl">
           <CardContent className="p-6">
             <div className="text-left mb-4">
               <div className="text-xl font-bold text-black">{fatsConsumed}g</div>
-              <div className="text-sm font-semibold text-black">Fats left</div>
+              <div className="text-sm font-medium text-gray-500">Fats left</div>
             </div>
-            <div className="relative w-16 h-16">
+            <div className="relative w-12 h-12">
               <ChartContainer
                 config={{
                   consumed: { color: "#3b82f6" },
@@ -248,14 +265,15 @@ export const Dashboard = () => {
                 }}
                 className="w-full h-full"
               >
-                <PieChart width={64} height={64}>
+                <PieChart width={48} height={48}>
                   <Pie
                     data={fatsData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={20}
-                    outerRadius={30}
+                    innerRadius={15}
+                    outerRadius={22}
                     dataKey="value"
+                    strokeWidth={0}
                   >
                     <Cell fill="#3b82f6" />
                     <Cell fill="#f3f4f6" />
@@ -263,23 +281,44 @@ export const Dashboard = () => {
                 </PieChart>
               </ChartContainer>
               <div className="absolute inset-0 flex items-center justify-center">
-                <Droplet className="w-4 h-4 text-blue-500" />
+                <Droplet className="w-3 h-3 text-blue-500" />
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
+      {/* Promotional Discount Box */}
+      <Card className="shadow-lg border-0 bg-gradient-to-r from-pink-100 to-red-100 rounded-3xl mb-8">
+        <CardContent className="p-6">
+          <div className="flex items-center justify-between">
+            <div className="flex-1">
+              <div className="inline-block bg-pink-500 text-white px-4 py-2 rounded-full text-sm font-bold mb-3">
+                80% off
+              </div>
+              <h3 className="text-lg font-bold text-black mb-1">Your trial</h3>
+              <h3 className="text-lg font-bold text-black">ends today!!</h3>
+            </div>
+            <div className="text-center mr-4">
+              <div className="text-2xl font-bold text-black mb-1">23 : 56 : 43</div>
+            </div>
+            <Button className="bg-black text-white hover:bg-gray-800 rounded-full px-6 py-3">
+              Resubscribe now
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Recently Logged */}
-      <div className="mb-6">
-        <h2 className="text-xl font-bold text-foreground mb-4">Recently Logged</h2>
+      <div className="mb-8">
+        <h2 className="text-xl font-bold text-black mb-6">Recently logged</h2>
         <div className="flex gap-4 overflow-x-auto pb-2">
           {recentMeals.map((meal, index) => (
-            <Card key={index} className="shadow-sm border-0 min-w-[200px]">
-              <CardContent className="p-4">
-                <div className="font-semibold text-foreground">{meal.name}</div>
-                <div className="text-sm text-muted-foreground">{meal.calories} cal</div>
-                <div className="text-xs text-muted-foreground">{meal.time}</div>
+            <Card key={index} className="shadow-lg border-0 bg-white rounded-3xl min-w-[200px]">
+              <CardContent className="p-5">
+                <div className="font-semibold text-black text-sm">{meal.name}</div>
+                <div className="text-xs text-gray-500 mt-1">{meal.calories} cal</div>
+                <div className="text-xs text-gray-400">{meal.time}</div>
               </CardContent>
             </Card>
           ))}
