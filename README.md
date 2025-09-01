@@ -2,7 +2,8 @@
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/02eb2fb4-459f-4188-9766-2096a381bf4b
+Edit it directly in your Lovable 
+**URL**: https://lovable.dev/projects/02eb2fb4-459f-4188-9766-2096a38**** ~~ contact owner at chetan.k2053@gmail.com
 
 ## How can I edit this code?
 
@@ -10,9 +11,11 @@ There are several ways of editing your application.
 
 **Use Lovable**
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/02eb2fb4-459f-4188-9766-2096a381bf4b) and start prompting.
+Simply visit the [Lovable Project](https://lovable.dev/projects/02eb2fb4-459f-4188-9766-2096a38****) and start prompting. 
 
 Changes made via Lovable will be committed automatically to this repo.
+
+~~ contact onwer at chetan.k2053@gmail.com to buy this repo
 
 **Use your preferred IDE**
 
@@ -31,16 +34,13 @@ cd <YOUR_PROJECT_NAME>
 
 # Step 3: Install the necessary dependencies.
 npm i
+or
+nmp install
 
 # Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
 
 **Use GitHub Codespaces**
 
@@ -62,9 +62,9 @@ This project is built with:
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/02eb2fb4-459f-4188-9766-2096a381bf4b) and click on Share -> Publish.
+Simply open [Lovable](https://lovable.dev/projects/02eb2fb4-459f-4188-9766-2096a38****) and click on Share -> Publish. 
 
-## Can I connect a custom domain to my Lovable project?
+## Can I connect a custom domain to my project?
 
 Yes, you can!
 
