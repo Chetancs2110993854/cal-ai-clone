@@ -4,11 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { ChartContainer } from '@/components/ui/chart';
 import { PieChart, Pie, Cell } from 'recharts';
-import { Camera, Flame, Beef, Wheat, Droplet } from 'lucide-react';
+import { Camera, Flame, Beef, Wheat, Droplet, Plus } from 'lucide-react';
+import { CameraCapture } from './CameraCapture';
+import { toast } from '@/hooks/use-toast';
 
 export const Dashboard = () => {
   const [userData, setUserData] = useState<any>(null);
   const [currentDay, setCurrentDay] = useState(new Date().getDay());
+  const [isCameraOpen, setIsCameraOpen] = useState(false);
   
   useEffect(() => {
     // Load user data from localStorage
@@ -52,8 +55,16 @@ export const Dashboard = () => {
   ];
 
   const handleCameraClick = () => {
-    // TODO: Implement camera functionality
-    console.log('Camera clicked - implement photo logging');
+    setIsCameraOpen(true);
+  };
+
+  const handlePhotoCapture = (imageBlob: Blob) => {
+    // TODO: Process the captured/selected image for food recognition
+    console.log('Photo captured:', imageBlob);
+    toast({
+      title: "Photo Captured",
+      description: "Processing your food image for calorie analysis..."
+    });
   };
 
   if (!userData) {
@@ -278,11 +289,18 @@ export const Dashboard = () => {
       {/* Floating Action Button */}
       <Button
         onClick={handleCameraClick}
-        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-foreground hover:bg-foreground/90 text-background shadow-lg"
+        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-black hover:bg-black/90 text-white shadow-lg"
         size="icon"
       >
-        <Camera className="w-6 h-6" />
+        <Plus className="w-6 h-6" />
       </Button>
+
+      {/* Camera Capture Modal */}
+      <CameraCapture
+        isOpen={isCameraOpen}
+        onClose={() => setIsCameraOpen(false)}
+        onCapture={handlePhotoCapture}
+      />
     </div>
   );
 };
