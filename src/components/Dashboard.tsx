@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
+import { ChartContainer } from '@/components/ui/chart';
+import { PieChart, Pie, Cell } from 'recharts';
 import { Camera, Flame, Beef, Wheat, Droplet } from 'lucide-react';
 
 export const Dashboard = () => {
@@ -58,8 +60,29 @@ export const Dashboard = () => {
     return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
   }
 
+  // Create chart data for each nutrient
+  const caloriesData = [
+    { name: 'consumed', value: currentCalories },
+    { name: 'remaining', value: Math.max(0, targetCalories - currentCalories) }
+  ];
+
+  const proteinData = [
+    { name: 'consumed', value: proteinConsumed },
+    { name: 'remaining', value: Math.max(0, targetProtein - proteinConsumed) }
+  ];
+
+  const carbsData = [
+    { name: 'consumed', value: carbsConsumed },
+    { name: 'remaining', value: Math.max(0, targetCarbs - carbsConsumed) }
+  ];
+
+  const fatsData = [
+    { name: 'consumed', value: fatsConsumed },
+    { name: 'remaining', value: Math.max(0, targetFats - fatsConsumed) }
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 p-4">
+    <div className="min-h-screen bg-white bg-gradient-to-b from-white to-gray-50 p-4">
       {/* Top Bar */}
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-foreground">Cal AI</h1>
@@ -93,17 +116,34 @@ export const Dashboard = () => {
         <Card className="shadow-sm border-0">
           <CardContent className="p-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-foreground mb-2">{currentCalories}</div>
-              <div className="text-sm text-muted-foreground mb-4">
+              <div className="text-3xl font-bold text-black mb-2">{currentCalories}</div>
+              <div className="text-sm text-gray-600 mb-4">
                 {caloriesLeft > 0 ? `${caloriesLeft} calories left` : `${Math.abs(caloriesLeft)} calories over`}
               </div>
               <div className="relative w-24 h-24 mx-auto">
-                <Progress 
-                  value={(currentCalories / targetCalories) * 100} 
-                  className="h-2"
-                />
+                <ChartContainer
+                  config={{
+                    consumed: { color: "#ff6b35" },
+                    remaining: { color: "#f3f4f6" }
+                  }}
+                  className="w-full h-full"
+                >
+                  <PieChart width={96} height={96}>
+                    <Pie
+                      data={caloriesData}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={30}
+                      outerRadius={45}
+                      dataKey="value"
+                    >
+                      <Cell fill="#ff6b35" />
+                      <Cell fill="#f3f4f6" />
+                    </Pie>
+                  </PieChart>
+                </ChartContainer>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <Flame className="w-8 h-8 text-primary" />
+                  <Flame className="w-8 h-8 text-orange-500" />
                 </div>
               </div>
             </div>
@@ -113,33 +153,35 @@ export const Dashboard = () => {
         {/* Protein Card */}
         <Card className="shadow-sm border-0">
           <CardContent className="p-6">
-            <div className="flex items-start justify-between mb-4">
-              <div className="text-left">
-                <div className="text-xl font-bold text-foreground">{proteinConsumed}g</div>
-                <div className="text-sm font-semibold text-foreground">Protein left</div>
-              </div>
-              <Beef className="w-5 h-5 text-red-500" />
+            <div className="text-left mb-4">
+              <div className="text-xl font-bold text-black">{proteinConsumed}g</div>
+              <div className="text-sm font-semibold text-black">Protein left</div>
             </div>
             <div className="relative w-16 h-16">
-              <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 36 36">
-                <path
-                  d="M18 2.0845
-                    a 15.9155 15.9155 0 0 1 0 31.831
-                    a 15.9155 15.9155 0 0 1 0 -31.831"
-                  fill="none"
-                  stroke="hsl(var(--muted))"
-                  strokeWidth="3"
-                />
-                <path
-                  d="M18 2.0845
-                    a 15.9155 15.9155 0 0 1 0 31.831
-                    a 15.9155 15.9155 0 0 1 0 -31.831"
-                  fill="none"
-                  stroke="#ef4444"
-                  strokeWidth="3"
-                  strokeDasharray={`${(proteinConsumed / targetProtein) * 100}, 100`}
-                />
-              </svg>
+              <ChartContainer
+                config={{
+                  consumed: { color: "#ef4444" },
+                  remaining: { color: "#f3f4f6" }
+                }}
+                className="w-full h-full"
+              >
+                <PieChart width={64} height={64}>
+                  <Pie
+                    data={proteinData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={20}
+                    outerRadius={30}
+                    dataKey="value"
+                  >
+                    <Cell fill="#ef4444" />
+                    <Cell fill="#f3f4f6" />
+                  </Pie>
+                </PieChart>
+              </ChartContainer>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Beef className="w-4 h-4 text-red-500" />
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -147,33 +189,35 @@ export const Dashboard = () => {
         {/* Carbs Card */}
         <Card className="shadow-sm border-0">
           <CardContent className="p-6">
-            <div className="flex items-start justify-between mb-4">
-              <div className="text-left">
-                <div className="text-xl font-bold text-foreground">{carbsConsumed}g</div>
-                <div className="text-sm font-semibold text-foreground">Carbs left</div>
-              </div>
-              <Wheat className="w-5 h-5 text-orange-500" />
+            <div className="text-left mb-4">
+              <div className="text-xl font-bold text-black">{carbsConsumed}g</div>
+              <div className="text-sm font-semibold text-black">Carbs left</div>
             </div>
             <div className="relative w-16 h-16">
-              <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 36 36">
-                <path
-                  d="M18 2.0845
-                    a 15.9155 15.9155 0 0 1 0 31.831
-                    a 15.9155 15.9155 0 0 1 0 -31.831"
-                  fill="none"
-                  stroke="hsl(var(--muted))"
-                  strokeWidth="3"
-                />
-                <path
-                  d="M18 2.0845
-                    a 15.9155 15.9155 0 0 1 0 31.831
-                    a 15.9155 15.9155 0 0 1 0 -31.831"
-                  fill="none"
-                  stroke="#f97316"
-                  strokeWidth="3"
-                  strokeDasharray={`${(carbsConsumed / targetCarbs) * 100}, 100`}
-                />
-              </svg>
+              <ChartContainer
+                config={{
+                  consumed: { color: "#f97316" },
+                  remaining: { color: "#f3f4f6" }
+                }}
+                className="w-full h-full"
+              >
+                <PieChart width={64} height={64}>
+                  <Pie
+                    data={carbsData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={20}
+                    outerRadius={30}
+                    dataKey="value"
+                  >
+                    <Cell fill="#f97316" />
+                    <Cell fill="#f3f4f6" />
+                  </Pie>
+                </PieChart>
+              </ChartContainer>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Wheat className="w-4 h-4 text-orange-500" />
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -181,33 +225,35 @@ export const Dashboard = () => {
         {/* Fats Card */}
         <Card className="shadow-sm border-0">
           <CardContent className="p-6">
-            <div className="flex items-start justify-between mb-4">
-              <div className="text-left">
-                <div className="text-xl font-bold text-foreground">{fatsConsumed}g</div>
-                <div className="text-sm font-semibold text-foreground">Fats left</div>
-              </div>
-              <Droplet className="w-5 h-5 text-blue-500" />
+            <div className="text-left mb-4">
+              <div className="text-xl font-bold text-black">{fatsConsumed}g</div>
+              <div className="text-sm font-semibold text-black">Fats left</div>
             </div>
             <div className="relative w-16 h-16">
-              <svg className="w-16 h-16 transform -rotate-90" viewBox="0 0 36 36">
-                <path
-                  d="M18 2.0845
-                    a 15.9155 15.9155 0 0 1 0 31.831
-                    a 15.9155 15.9155 0 0 1 0 -31.831"
-                  fill="none"
-                  stroke="hsl(var(--muted))"
-                  strokeWidth="3"
-                />
-                <path
-                  d="M18 2.0845
-                    a 15.9155 15.9155 0 0 1 0 31.831
-                    a 15.9155 15.9155 0 0 1 0 -31.831"
-                  fill="none"
-                  stroke="#3b82f6"
-                  strokeWidth="3"
-                  strokeDasharray={`${(fatsConsumed / targetFats) * 100}, 100`}
-                />
-              </svg>
+              <ChartContainer
+                config={{
+                  consumed: { color: "#3b82f6" },
+                  remaining: { color: "#f3f4f6" }
+                }}
+                className="w-full h-full"
+              >
+                <PieChart width={64} height={64}>
+                  <Pie
+                    data={fatsData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={20}
+                    outerRadius={30}
+                    dataKey="value"
+                  >
+                    <Cell fill="#3b82f6" />
+                    <Cell fill="#f3f4f6" />
+                  </Pie>
+                </PieChart>
+              </ChartContainer>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Droplet className="w-4 h-4 text-blue-500" />
+              </div>
             </div>
           </CardContent>
         </Card>
