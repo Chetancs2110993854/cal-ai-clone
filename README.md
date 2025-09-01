@@ -3,7 +3,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/Chetancs2110993854/cal-ai-clone?style=flat&logo=github)
 ![GitHub issues](https://img.shields.io/github/issues/Chetancs2110993854/cal-ai-clone)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/Chetancs2110993854/cal-ai-clone)
-![GitHub license](https://img.shields.io/github/License/Chetancs2110993854/cal-ai-clone)
+![GitHub license](https://img.shields.io/github/license/Chetancs2110993854/cal-ai-clone)
 
 # Welcome to Cal ai
 
