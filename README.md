@@ -3,7 +3,10 @@
 ## Project info
 
 This is the clone of Cal ai (https://www.calai.app/) , a $2M/month ARR app.
+
 Demo: https://calorie-pathway.lovable.app/
+
+Figma: https://www.figma.com/board/tTQaByecKYnFWcSIEKXgU2/Cal-AI-s-Onboarding---Broken-down--Community-?node-id=2-144&t=XlZrUo53GWDB7klO-1
 
 AI might not work due to API expiry 
 
