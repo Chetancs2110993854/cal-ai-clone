@@ -2,6 +2,11 @@
 
 ## Project info
 
+This is the clone of Cal ai (https://www.calai.app/) , a $2M/month ARR app.
+Demo: https://calorie-pathway.lovable.app/
+
+AI might not work due to API expiry 
+
 Edit it directly in your Lovable 
 **URL**: https://lovable.dev/projects/02eb2fb4-459f-4188-9766-2096a38**** ~~ contact owner at chetan.k2053@gmail.com
 
@@ -15,7 +20,7 @@ Simply visit the [Lovable Project](https://lovable.dev/projects/02eb2fb4-459f-41
 
 Changes made via Lovable will be committed automatically to this repo.
 
-~~ contact onwer at chetan.k2053@gmail.com to buy this repo
+~~ contact onwer at chetan.k2053@gmail.com to buy this repo (all support provided)
 
 **Use your preferred IDE**
 
